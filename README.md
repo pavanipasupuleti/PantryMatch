@@ -94,3 +94,21 @@ npm run dev
 
 Frontend runs on:
 http://localhost:5173
+
+ScreenShots
+
+HomePage:
+<img width="2047" height="1331" alt="image" src="https://github.com/user-attachments/assets/395576f7-ce5f-4d18-8dff-aba3bb594cb2" />
+
+RecipesPage:
+<img width="2047" height="1331" alt="image" src="https://github.com/user-attachments/assets/067cc491-1bba-4b64-bf6b-fd23f6598c6c" />
+
+RecipeDetailPage:
+<img width="2940" height="1912" alt="image" src="https://github.com/user-attachments/assets/51a70bac-ef59-4d4f-a207-e4054218abde" />
+
+RecipeBookPage:
+<img width="2047" height="1331" alt="image" src="https://github.com/user-attachments/assets/e4310b07-68e3-429a-8c04-cd5569371e06" />
+
+
+
+
