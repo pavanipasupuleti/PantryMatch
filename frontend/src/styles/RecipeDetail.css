@@ -1,0 +1,132 @@
+.recipe-detail {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+    color: #e5e7eb;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #6ee7a8;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .recipe-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  }
+  
+  .recipe-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .recipe-badge {
+    width: fit-content;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(46, 204, 113, 0.2);
+    color: #6ee7a8;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .recipe-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+  }
+  
+  .recipe-time {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #9ca3af;
+    font-size: 14px;
+  }
+  
+  .recipe-image {
+    width: 260px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+  
+  .section-title {
+    margin-top: 40px;
+    margin-bottom: 16px;
+    font-size: 18px;
+    color: #6ee7a8;
+    letter-spacing: 1px;
+  }
+  
+  /* Ingredients */
+  .ingredient-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .ingredient-list li {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.04);
+    padding: 14px 18px;
+    border-radius: 14px;
+  }
+  
+  /* Steps */
+  .steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .step-card {
+    display: flex;
+    gap: 16px;
+    background: rgba(255,255,255,0.04);
+    padding: 18px;
+    border-radius: 18px;
+    border-left: 4px solid #6ee7a8;
+  }
+  
+  .step-number {
+    min-width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #6ee7a8;
+    color: #064e3b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+  
+  .step-card h4 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    color: #e5e7eb;
+  }
+  
+  .step-card p {
+    margin: 0;
+    font-size: 14px;
+    color: #9ca3af;
+  }
+  
+  .recipe-loading {
+    text-align: center;
+    padding: 60px;
+    color: #9ca3af;
+  }
+  

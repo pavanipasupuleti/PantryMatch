@@ -1,0 +1,240 @@
+.recipes-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px;
+  color: #e5f9ee;
+}
+
+
+.home-link {
+  color: #6ee7a8;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 12px 0 6px;
+}
+
+.page-subtitle {
+  color: #9ca3af;
+  margin-bottom: 20px;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+  margin-top: 28px;
+}
+
+
+.recipe-card-new {
+  background: #ffffff;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  /* max-width: 340px; */
+}
+
+
+.recipe-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  height: 170px;
+}
+
+.recipe-category {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #e9fff2;
+  color: #16a34a;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.recipe-content {
+  padding: 16px;
+}
+
+/* .recipe-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+} */
+.recipe-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color:#111827;
+}
+/* .recipe-time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #6b7280;
+} */
+
+.recipe-time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-size: 14px;
+  margin: 6px 0;
+}
+
+
+.recipe-status {
+  font-size: 13px;
+  margin: 10px 0;
+}
+
+/* .recipe-status.ready {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.recipe-status.missing {
+  color: #f59e0b;
+} */
+.recipe-status.ready {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.recipe-status.missing {
+  color: #d97706;
+  font-size: 12px;
+  font-weight: 500;
+}
+.cook-btn {
+  display: block;
+  text-align: center;
+  background: #6ee7a8;
+  color: #064e3b;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 14px;
+  text-decoration: none;
+}
+
+/* .ready-card {
+  border: 2px solid #6ee7a8;
+} */
+.ready-card {
+  
+  box-shadow: 0 0 0 1px #6ee7b7, 0 12px 30px rgba(110, 231, 183, 0.25);
+  transform: translateY(-2px);
+}
+
+.missing-card {
+  opacity: 0.92;
+  border: 2px dashed #f59e0b;
+}
+
+.disabled-btn {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.recipe-status.missing {
+  background: rgba(245, 158, 11, 0.15);
+  padding: 6px 10px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.recipe-card-new {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.recipe-card-new:hover {
+  transform: translateY(-4px);
+}
+
+.cook-btn:hover {
+  filter: brightness(0.95);
+}
+
+.cook-btn:active {
+  transform: scale(0.98);
+}
+
+/* =========================
+   TOAST NOTIFICATION
+========================= */
+
+.toast {
+  position: fixed;
+  top: 90px; /* below navbar */
+  right: 32px;
+  z-index: 9999;
+
+  padding: 14px 18px;
+  border-radius: 14px;
+  min-width: 280px;
+  max-width: 380px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+  font-size: 14px;
+  font-weight: 500;
+  animation: slideIn 0.35s ease-out;
+}
+
+.toast-success {
+  background: rgba(32, 83, 55, 0.95);
+  color: #9ff5c8;
+  border: 1px solid rgba(90, 255, 170, 0.25);
+}
+
+.toast-info {
+  /* background: rgba(45, 62, 80, 0.95);
+  color: #9ff5c8;
+  border: 1px solid rgba(90, 255, 170, 0.25); */
+  background: rgba(104, 78, 41, 0.95);
+  color: #ffd8a8;
+  border: 1px solid rgba(255, 190, 90, 0.25);
+}
+
+.toast-warning {
+  background: rgba(92, 65, 28, 0.95);
+  color: #ffd8a8;
+  border: 1px solid rgba(255, 190, 90, 0.25);
+}
+
+.toast button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
