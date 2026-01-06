@@ -1,0 +1,256 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+.recipe-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+body {
+  background: #0f1a14;
+  color: #e8f0eb;
+  min-height: 100vh;
+}
+
+/* Main Card */
+.app-container {
+  max-width: 760px;
+  margin: 80px auto;
+  padding: 40px;
+  border-radius: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(26, 45, 36, 0.95),
+    rgba(20, 34, 27, 0.98)
+  );
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+/* Headings */
+.page-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.page-subtitle {
+  font-size: 15px;
+  color: #9fb6ab;
+  margin-bottom: 30px;
+}
+
+/* Input */
+/* .input-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.input-row input {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid #2b3f35;
+  background: #16261f;
+  color: #e8f0eb;
+  font-size: 15px;
+}
+
+.input-row input::placeholder {
+  color: #7f978c;
+}
+
+.input-row button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #63e88d;
+  color: #0f1a14;
+  font-size: 24px;
+  cursor: pointer;
+} */
+ /* Search Bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #16261f;
+  border: 1px solid #2b3f35;
+  border-radius: 999px;
+  padding: 6px 8px 6px 14px;
+  margin-bottom: 30px;
+}
+
+.search-icon {
+  color: #7f978c;
+  font-size: 20px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+
+.search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e8f0eb;
+  font-size: 15px;
+}
+
+.search-bar input::placeholder {
+  color: #7f978c;
+}
+
+/* Plus Button */
+.add-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: #63e88d;
+  color: #0f1a14;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.add-btn:hover {
+  transform: scale(1.05);
+}
+/* Top Navigation */
+.top-bar {
+  margin-bottom: 20px;
+}
+
+.home-link {
+  color: #63e88d;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}
+
+
+
+/* Pantry */
+.pantry-section {
+  margin-bottom: 30px;
+}
+.pantry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  color: #63e88d;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  text-decoration: underline;
+}
+
+
+.pantry-title {
+  font-size: 13px;
+  color: #9fb6ab;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.pantry-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ingredient-chip {
+  background: #63e88d;
+  color: #0f1a14;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.empty-text {
+  color: #7f978c;
+  font-size: 14px;
+}
+
+/* Pro Tip */
+.pro-tip {
+  margin-top: 30px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #16261f;
+  color: #9fb6ab;
+  font-size: 13px;
+}
+
+.check-btn {
+  width: 100%;
+  margin-top: 25px;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  background: #63e88d;
+  color: #0f1a14;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.check-btn:disabled {
+  background: #2b3f35;
+  color: #7f978c;
+  cursor: not-allowed;
+}
+
+.ingredient-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #6df2a0;
+  color: #0b1f14;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.chip-remove {
+  cursor: pointer;
+  color: #0b1f14;
+  font-size: 18px;
+  line-height: 1;
+  margin-left: 2px;
+}
+
+/* NO background, just hover effect */
+.chip-remove:hover {
+  color: #000;
+  transform: scale(1.15);
+}
+
+/* Optional: smooth */
+.chip-remove {
+  transition: transform 0.15s ease, color 0.15s ease;
+}
