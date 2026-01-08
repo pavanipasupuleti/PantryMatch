@@ -1,37 +1,46 @@
-PantryMatch
+PantryMatch 
 
-PantryMatch is a full-stack web application that helps users determine which recipes they can cook immediately based on the ingredients available at home.
-Instead of searching endlessly, users simply enter what they have in their pantry, and the app intelligently matches it with recipes.
+PantryMatch is a full-stack web application that helps users instantly identify which recipes they can cook based on the ingredients they already have at home. Instead of scrolling endlessly through recipes, users simply input their pantry items and get intelligent, real-time recipe matches—reducing friction, saving time, and minimizing food waste.
 
-Features
+ Features
 
 1. Pantry Management
 
-Add ingredients you currently have
+Add ingredients currently available at home
+
 Remove individual ingredients using a close button
-Clear the entire pantry with one click
-Prevents duplicate ingredients
-Shows warnings for invalid ingredients using toast messages
 
- 2. Recipe Matching
+Clear the entire pantry with a single click
 
-Shows recipes you can cook right now
-Highlights recipes that are almost possible (missing ingredients)
+Prevents duplicate ingredient entries
 
- Recipes are sorted by:
+Displays warnings for invalid ingredients using toast notifications
 
--> Cookable first
+2. Recipe Matching
 
--> Least missing ingredients next
+Displays recipes that can be cooked immediately
 
--> Displays cooking time and category
+Highlights almost-cookable recipes with missing ingredients
+
+Recipes are intelligently sorted by:
+
+Cookable recipes first
+
+Recipes with the least missing ingredients next
+
+Shows:
+
+Cooking time
+
+Recipe category
 
 3. Recipe Book
 
 Browse all saved recipes
+
 Search recipes by name
 
-Filter by:
+Filter recipes by:
 
 Category (Breakfast, Lunch, Dinner, Snacks)
 
@@ -39,15 +48,15 @@ Cuisine
 
 Cooking time
 
-“Show More Recipes” pagination
+Pagination support with “Show More Recipes.”
 
 4. Smart Feedback (Toasts)
 
-Success toast when recipes are cookable
+✅ Success toast when recipes are fully cookable
 
-Warning toast if nothing matches
+⚠️ Warning toast when no recipes match
 
-Info toast when ingredients are missing
+ℹ️ Info toast when ingredients are missing
 
 🛠️ Tech Stack
 
@@ -57,7 +66,7 @@ React (Vite)
 
 React Router
 
-CSS (custom styling)
+Custom CSS
 
 React Icons
 
@@ -71,29 +80,31 @@ MongoDB
 
 Mongoose
 
-⚙️ Setup
+⚙️ Setup Instructions
 
-Backend Setup
+ Backend Setup
 
 cd backend
-
 npm install
-
 npm start
 
+
 Backend runs on:
-http://localhost:5055
+👉 http://localhost:5055
 
-Frontend Setup
-
+ Frontend Setup
+ 
 cd frontend
-
 npm install
-
 npm run dev
 
+
 Frontend runs on:
-http://localhost:5173
+👉 http://localhost:5173
+
+📌 Project Goal
+
+PantryMatch is designed to simplify meal decisions, optimize ingredient usage, and eliminate unnecessary grocery runs by aligning real-time pantry inputs with a personalized recipe database.
 
 ScreenShots
 
