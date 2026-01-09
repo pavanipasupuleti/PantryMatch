@@ -1,6 +1,6 @@
 PantryMatch 
 
-PantryMatch is a full-stack web application that helps users instantly identify which recipes they can cook based on the ingredients they already have at home. Instead of scrolling endlessly through recipes, users simply input their pantry items and get intelligent, real-time recipe matches—reducing friction, saving time, and minimizing food waste.
+PantryMatch is a full-stack web application that helps users instantly identify which recipes they can cook based on the ingredients they already have at home. Instead of scrolling endlessly through recipes, users simply input their pantry items and get intelligent, real-time recipe matches, reducing friction, saving time, and minimizing food waste.
 
  Features
 
