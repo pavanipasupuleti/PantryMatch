@@ -341,3 +341,26 @@ body {
 .ai-gen-icon {
   font-size: 18px;
 }
+
+@media print {
+  body, #root {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  nav, .navbar, .recipe-actions, .copy-toast {
+    display: none !important;
+  }
+
+  * {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-color: #ccc !important;
+  }
+
+  .step-number {
+    background: #000 !important;
+    color: #fff !important;
+  }
+}
