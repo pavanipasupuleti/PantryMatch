@@ -348,19 +348,31 @@ body {
     color: #000 !important;
   }
 
-  nav, .navbar, .recipe-actions, .copy-toast {
+  nav, .navbar, .recipe-actions, .copy-toast, .all-set-banner {
     display: none !important;
   }
 
-  * {
+  .recipe-detail, .recipe-header, .recipe-header-text,
+  .ingredient-list li, .step-card, .shopping-item {
+    background: #fff !important;
     color: #000 !important;
-    background: transparent !important;
     box-shadow: none !important;
     border-color: #ccc !important;
+  }
+
+  .recipe-badge, .recipe-header h1, .recipe-time,
+  .section-title, .step-card h4, .step-card p,
+  .shopping-name, .shopping-qty, .shopping-count {
+    color: #000 !important;
   }
 
   .step-number {
     background: #000 !important;
     color: #fff !important;
+  }
+
+  .recipe-image {
+    width: 200px !important;
+    height: 150px !important;
   }
 }
