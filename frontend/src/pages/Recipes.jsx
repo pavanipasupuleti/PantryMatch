@@ -261,12 +261,14 @@ function Recipes({ pantry }) {
                 {matchPct}%
               </span>
 
-              <img
-                src={imgSrc}
-                alt={recipe.title}
-                className="recipe-image"
-                onError={e => (e.currentTarget.src = FALLBACK_IMG)}
-              />
+              <div className="card-img-box">
+                <img
+                  src={imgSrc}
+                  alt={recipe.title}
+                  className="recipe-image"
+                  onError={e => (e.currentTarget.src = FALLBACK_IMG)}
+                />
+              </div>
 
               <div className="recipe-content">
                 <h3 className="recipe-title">{recipe.title}</h3>
