@@ -53,18 +53,22 @@ router.post("/match", async (req, res) => {
         ing => !normalizedPantry.includes(ing)
       );
 
+      const totalIngredients = ingredientNames.length;
+      const matchPercent = totalIngredients === 0 ? 0
+        : Math.round(((totalIngredients - missingIngredients.length) / totalIngredients) * 100);
+
       return {
         _id: recipe._id,
         title: recipe.title,
         category: recipe.category,
         cuisine: recipe.cuisine,
         time: recipe.time,
-
-        imageKey: recipe.imageKey, // Added imageKey to the response
-
+        imageKey: recipe.imageKey,
         canCook: missingIngredients.length === 0,
         missingCount: missingIngredients.length,
-        missingIngredients
+        missingIngredients,
+        totalIngredients,
+        matchPercent,
       };
     });
 

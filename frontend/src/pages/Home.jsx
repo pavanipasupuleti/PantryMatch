@@ -1,12 +1,14 @@
-
-
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaLightbulb } from "react-icons/fa6";
+import { HiSparkles } from "react-icons/hi2";
 import IngredientInput from "../components/IngredientInput";
 import PantryList from "../components/PantryList";
-import { FaLightbulb } from "react-icons/fa6";
+import AiRecipeModal from "../components/AiRecipeModal";
 
 function Home({ pantry, setPantry, validIngredients }) {
   const navigate = useNavigate();
+  const [showAI, setShowAI] = useState(false);
 
   return (
     <div className="app-container">
@@ -30,7 +32,6 @@ function Home({ pantry, setPantry, validIngredients }) {
         </div>
 
         <PantryList pantry={pantry} setPantry={setPantry} />
-
       </div>
 
       <button
@@ -41,15 +42,25 @@ function Home({ pantry, setPantry, validIngredients }) {
         Check Recipes →
       </button>
 
+      {pantry.length >= 2 && (
+        <button className="ai-gen-btn" onClick={() => setShowAI(true)}>
+          <HiSparkles className="ai-gen-icon" />
+          AI: Generate a Recipe
+        </button>
+      )}
+
       <div className="pro-tip">
         <FaLightbulb />
         <span>
           <strong>Pro Tip:</strong> Add at least 3 ingredients for better matches
         </span>
       </div>
+
+      {showAI && (
+        <AiRecipeModal pantry={pantry} onClose={() => setShowAI(false)} />
+      )}
     </div>
   );
 }
 
 export default Home;
-

@@ -1,143 +1,4 @@
-// import { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
-// import { MdAccessTime } from "react-icons/md";
-// import "../styles/recipes.css";
 
-// /* FRONTEND-ONLY IMAGE MAP */
-// const imageMap = {
-//   "Bread Omelette": "/breadomelette.png",
-//   "Scrambled Eggs": "/scrambled-eggs.jpg",
-//   "Omelette": "/omelette.jpg",
-// };
-
-// function Recipes({ pantry }) {
-//   const [recipes, setRecipes] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     let cancelled = false;
-
-//     // Async function to handle the fetch logic
-//     async function fetchRecipes() {
-//       // Check if pantry is empty
-//       if (!pantry || pantry.length === 0) {
-//         if (!cancelled) {
-//           setRecipes([]);
-//           setLoading(false);
-//         }
-//         return;
-//       }
-
-//       // Start loading
-//       if (!cancelled) {
-//         setLoading(true);
-//       }
-
-//       try {
-//         const response = await fetch("http://localhost:5055/api/recipes/match", {
-//           method: "POST",
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify({ pantry }),
-//         });
-
-//         const data = await response.json();
-
-//         if (!cancelled) {
-//           setRecipes(data);
-//         }
-//       } catch (err) {
-//         if (!cancelled) {
-//           console.error(err);
-//         }
-//       } finally {
-//         if (!cancelled) {
-//           setLoading(false);
-//         }
-//       }
-//     }
-
-//     fetchRecipes();
-
-//     // Cleanup function
-//     return () => {
-//       cancelled = true;
-//     };
-//   }, [pantry]);
-
-//   return (
-//     <div className="recipes-page">
-//       <Link to="/" className="home-link">← Home</Link>
-
-//       <h1 className="page-title">Recipes you can make</h1>
-
-//       {loading && (
-//         <p className="page-subtitle">Checking your pantry...</p>
-//       )}
-
-//       {!loading && recipes.length === 0 && (
-//         <p className="page-subtitle">No recipes found.</p>
-//       )}
-
-//       <div className="recipe-grid">
-//         {recipes.map((recipe) => (
-//           <div
-//             key={recipe._id}
-//             className={`recipe-card-new ${
-//               recipe.canCook ? "ready-card" : "missing-card"
-//             }`}
-//           >
-//             {/* CATEGORY */}
-//             <span className="recipe-category">
-//               {recipe.category}
-//             </span>
-
-//             {/* IMAGE */}
-//             <img
-//   src={imageMap[recipe.imageKey] || "/fallback.jpg"}
-//   alt={recipe.title}
-//   className="recipe-image"
-// />
-
-
-
-//             {/* CONTENT */}
-//             <div className="recipe-content">
-//               <h3 className="recipe-title">{recipe.title}</h3>
-
-//               <div className="recipe-time">
-//                 <MdAccessTime />
-//                 <span>{recipe.time}</span>
-//               </div>
-
-//               {/* STATUS */}
-//               {recipe.canCook ? (
-//                 <p className="recipe-status ready">
-//                    READY TO COOK
-//                 </p>
-//               ) : (
-//                 <p className="recipe-status missing">
-//                   Missing {recipe.missingCount} ingredient
-//                   {recipe.missingCount > 1 ? "s" : ""}
-//                 </p>
-//               )}
-
-//               <Link
-//                 to={`/recipe/${recipe._id}`}
-//                 className={`cook-btn ${
-//                   recipe.canCook ? "" : "disabled-btn"
-//                 }`}
-//               >
-//                 {recipe.canCook ? "Let's Cook →" : "View Recipe →"}
-//               </Link>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Recipes;
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MdAccessTime } from "react-icons/md";
@@ -167,7 +28,7 @@ function Recipes({ pantry }) {
       setLoading(true);
 
       try {
-        const res = await fetch("http://localhost:5055/api/recipes/match", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/recipes/match`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ pantry }),
@@ -263,7 +124,16 @@ function Recipes({ pantry }) {
               />
 
               <div className="recipe-content">
-                <h3 className="recipe-title">{recipe.title}</h3>
+                <div className="recipe-title-row">
+                  <h3 className="recipe-title">{recipe.title}</h3>
+                  <span className={`match-badge ${
+                    recipe.matchPercent === 100 ? "match-green"
+                    : recipe.matchPercent >= 50  ? "match-yellow"
+                    : "match-red"
+                  }`}>
+                    {recipe.matchPercent}%
+                  </span>
+                </div>
 
                 <div className="recipe-time">
                   <MdAccessTime />

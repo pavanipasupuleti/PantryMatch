@@ -4,6 +4,14 @@
 }
 
 /* HEADER */
+.recipebook-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .recipebook-header h1 {
   font-size: 36px;
   font-weight: 700;
@@ -12,6 +20,74 @@
 
 .recipebook-header p {
   opacity: 0.8;
+}
+
+/* SAVED TAB BUTTON */
+.fav-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(110, 255, 170, 0.08);
+  border: 1px solid rgba(99, 232, 141, 0.25);
+  color: #63e88d;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.fav-tab-btn:hover {
+  background: rgba(110, 255, 170, 0.15);
+}
+
+.fav-tab-active {
+  background: #63e88d;
+  color: #052e16;
+  border-color: #63e88d;
+}
+
+/* BOOKMARK BUTTON ON CARD */
+.bookmark-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  backdrop-filter: blur(6px);
+}
+
+.bookmark-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  transform: scale(1.1);
+}
+
+.bookmark-btn.bookmarked {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+/* NO FAVOURITES MESSAGE */
+.no-favs-msg {
+  text-align: center;
+  color: #6b7280;
+  padding: 48px 0;
+  font-size: 15px;
 }
 
 /* FILTER BAR */

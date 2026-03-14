@@ -47,3 +47,32 @@
   background:#63e88d;
   color: #052e16;
 }
+
+/* User section */
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-username {
+  font-size: 14px;
+  color: #c7f9cc;
+  font-weight: 500;
+}
+
+.nav-logout {
+  background: transparent;
+  border: 1px solid rgba(99, 232, 141, 0.35);
+  color: #63e88d;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.nav-logout:hover {
+  background: rgba(99, 232, 141, 0.12);
+}
