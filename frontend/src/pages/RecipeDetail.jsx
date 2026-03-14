@@ -52,7 +52,7 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { imageMap } from "../utils/imageMap";
 
-import { MdAccessTime } from "react-icons/md";
+import { MdAccessTime, MdShare, MdPrint } from "react-icons/md";
 import "../styles/RecipeDetail.css";
 
 function RecipeDetail() {
@@ -70,7 +70,20 @@ function RecipeDetail() {
       });
   }, [id]);
 
+  const [copied, setCopied] = useState(false);
+
   if (!recipe) return <p className="recipe-loading">Loading...</p>;
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    if (navigator.share) {
+      try { await navigator.share({ title: recipe.title, url }); } catch {}
+    } else {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   const pantry = (() => {
     try { return JSON.parse(localStorage.getItem("pm_pantry") || "[]"); }
@@ -98,6 +111,17 @@ function RecipeDetail() {
               <span>{recipe.time} mins</span>
             </div>
           )}
+
+          <div className="recipe-actions no-print">
+            <button className="action-btn" onClick={handleShare}>
+              <MdShare />
+              <span>{copied ? "Copied!" : "Share"}</span>
+            </button>
+            <button className="action-btn" onClick={() => window.print()}>
+              <MdPrint />
+              <span>Print</span>
+            </button>
+          </div>
         </div>
 
         {/* Static image */}

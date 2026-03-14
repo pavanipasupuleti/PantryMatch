@@ -173,4 +173,93 @@
     font-size: 13px;
     color: #9ca3af;
   }
-  
+
+  /* ACTION BUTTONS (Share / Print) */
+  .recipe-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(110, 231, 168, 0.35);
+    background: rgba(110, 231, 168, 0.08);
+    color: #6ee7a8;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .action-btn:hover {
+    background: rgba(110, 231, 168, 0.18);
+    border-color: #6ee7a8;
+  }
+
+  .action-btn svg {
+    font-size: 16px;
+  }
+
+  /* PRINT STYLES */
+  @media print {
+    .no-print { display: none !important; }
+
+    body {
+      background: #fff !important;
+      color: #111 !important;
+    }
+
+    .recipe-detail {
+      padding: 20px !important;
+      color: #111 !important;
+    }
+
+    .recipe-header {
+      background: none !important;
+      box-shadow: none !important;
+      border: 1px solid #ddd;
+      padding: 16px !important;
+    }
+
+    .recipe-header h1 { color: #111 !important; }
+
+    .recipe-badge {
+      background: #e0fae8 !important;
+      color: #16a34a !important;
+    }
+
+    .recipe-time { color: #555 !important; }
+
+    .section-title { color: #16a34a !important; }
+
+    .ingredient-list li,
+    .step-card,
+    .shopping-item {
+      background: #f9f9f9 !important;
+      border-color: #ddd !important;
+    }
+
+    .step-card { border-left-color: #16a34a !important; }
+
+    .step-number {
+      background: #16a34a !important;
+      color: #fff !important;
+    }
+
+    .step-card h4,
+    .step-card p { color: #111 !important; }
+
+    .shopping-list {
+      background: #fffbeb !important;
+      border-color: #fbbf24 !important;
+    }
+
+    .shopping-subtitle { color: #b45309 !important; }
+    .shopping-name { color: #111 !important; }
+    .shopping-qty { color: #555 !important; }
+  }
