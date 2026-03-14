@@ -128,7 +128,7 @@ export default function RecipeBook() {
               key={recipe._id}
               className="recipe-card"
               style={{ backgroundImage: `url(${imageMap[recipe.imageKey]})` }}
-              onClick={() => navigate(`/recipe/${recipe._id}`)}
+              onClick={() => navigate(`/recipe/${recipe.imageKey}`)}
             >
               <span className="badge">{recipe.category}</span>
 

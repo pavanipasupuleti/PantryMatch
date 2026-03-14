@@ -79,17 +79,17 @@ router.post("/match", async (req, res) => {
 });
 
 /* =============================
-   GET RECIPE BY ID
+   GET RECIPE BY SLUG (imageKey)
    ============================= */
-router.get("/:id", async (req, res) => {
+router.get("/:slug", async (req, res) => {
   try {
-    const recipe = await Recipe.findById(req.params.id);
+    const recipe = await Recipe.findOne({ imageKey: req.params.slug });
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
     res.json(recipe);
   } catch {
-    res.status(400).json({ message: "Invalid recipe ID" });
+    res.status(400).json({ message: "Invalid recipe slug" });
   }
 });
 

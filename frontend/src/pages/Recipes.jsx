@@ -150,7 +150,7 @@ function Recipes({ pantry }) {
                 )}
 
                 <Link
-                  to={`/recipe/${recipe._id}`}
+                  to={`/recipe/${recipe.imageKey}`}
                   className={`cook-btn ${
                     recipe.canCook ? "" : "disabled-btn"
                   }`}

@@ -7,7 +7,7 @@ import { FiShare2, FiPrinter, FiShoppingCart } from "react-icons/fi";
 import "../styles/RecipeDetail.css";
 
 function RecipeDetail() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [copyToast, setCopyToast] = useState(false);
 
@@ -18,13 +18,13 @@ function RecipeDetail() {
   })();
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/recipes/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/recipes/${slug}`)
       .then(res => res.json())
       .then(data => {
         if (data.steps) data.steps.sort((a, b) => a.order - b.order);
         setRecipe(data);
       });
-  }, [id]);
+  }, [slug]);
 
   async function handleShare() {
     const url = window.location.href;

@@ -72,7 +72,7 @@ function AppRoutes() {
         <Route path="/recipe-book" element={
           <ProtectedRoute><RecipeBook /></ProtectedRoute>
         } />
-        <Route path="/recipe/:id" element={
+        <Route path="/recipe/:slug" element={
           <ProtectedRoute><RecipeDetail /></ProtectedRoute>
         } />
 
