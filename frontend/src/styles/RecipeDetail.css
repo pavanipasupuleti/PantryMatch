@@ -129,4 +129,50 @@
     padding: 60px;
     color: #9ca3af;
   }
+
+  /* SHOPPING LIST */
+  .shopping-list {
+    margin-top: 40px;
+    padding: 24px;
+    background: rgba(245, 158, 11, 0.06);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    border-radius: 18px;
+  }
+
+  .shopping-subtitle {
+    color: #d97706;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .shopping-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .shopping-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 10px 14px;
+    border-radius: 12px;
+  }
+
+  .shopping-icon {
+    font-size: 16px;
+  }
+
+  .shopping-name {
+    flex: 1;
+    font-size: 15px;
+    text-transform: capitalize;
+  }
+
+  .shopping-qty {
+    font-size: 13px;
+    color: #9ca3af;
+  }
   

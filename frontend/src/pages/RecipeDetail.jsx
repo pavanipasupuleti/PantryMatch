@@ -72,6 +72,15 @@ function RecipeDetail() {
 
   if (!recipe) return <p className="recipe-loading">Loading...</p>;
 
+  const pantry = (() => {
+    try { return JSON.parse(localStorage.getItem("pm_pantry") || "[]"); }
+    catch { return []; }
+  })();
+
+  const missingIngredients = recipe.ingredients.filter(
+    ing => !pantry.includes(ing.name.toLowerCase().trim())
+  );
+
   return (
     <div className="recipe-detail">
 
@@ -124,6 +133,25 @@ function RecipeDetail() {
           </div>
         ))}
       </div>
+
+      {/* Shopping List */}
+      {missingIngredients.length > 0 && (
+        <div className="shopping-list">
+          <h2 className="section-title">Shopping List</h2>
+          <p className="shopping-subtitle">
+            {missingIngredients.length} ingredient{missingIngredients.length > 1 ? "s" : ""} not in your pantry
+          </p>
+          <ul className="shopping-items">
+            {missingIngredients.map((ing, idx) => (
+              <li key={idx} className="shopping-item">
+                <span className="shopping-icon">🛒</span>
+                <span className="shopping-name">{ing.name}</span>
+                <span className="shopping-qty">{ing.quantity}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
     </div>
   );

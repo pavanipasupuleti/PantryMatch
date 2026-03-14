@@ -97,6 +97,66 @@
   );
 }
 
+/* FAV TABS */
+.fav-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+.tab-btn {
+  background: transparent;
+  border: 1px solid #2b3f35;
+  color: #9fb6ab;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+  border-color: #63e88d;
+  color: #63e88d;
+}
+
+.tab-active {
+  background: #63e88d;
+  border-color: #63e88d;
+  color: #0f1a14;
+  font-weight: 600;
+}
+
+/* FAV BUTTON */
+.fav-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.45);
+  border: none;
+  color: #ccc;
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.fav-btn:hover {
+  color: #ff6b8a;
+  transform: scale(1.15);
+}
+
+.fav-active {
+  color: #ff6b8a !important;
+}
+
 /* BADGE */
 .badge {
   position: absolute;

@@ -245,6 +245,9 @@ function Recipes({ pantry }) {
       <div className="recipe-grid">
         {recipes.map(recipe => {
           const imgSrc = imageMap[recipe.imageKey] || FALLBACK_IMG;
+          const matchPct = recipe.totalIngredients > 0
+            ? Math.round(((recipe.totalIngredients - recipe.missingCount) / recipe.totalIngredients) * 100)
+            : 0;
 
           return (
             <div
@@ -254,6 +257,9 @@ function Recipes({ pantry }) {
               }`}
             >
               <span className="recipe-category">{recipe.category}</span>
+              <span className={`match-pct ${matchPct === 100 ? "match-full" : matchPct >= 50 ? "match-mid" : "match-low"}`}>
+                {matchPct}%
+              </span>
 
               <img
                 src={imgSrc}

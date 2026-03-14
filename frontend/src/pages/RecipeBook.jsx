@@ -223,11 +223,25 @@ export default function RecipeBook() {
   const [category, setCategory] = useState("All");
   const [cuisine, setCuisine] = useState("All");
   const [time, setTime] = useState("All");
+  const [showFavs, setShowFavs] = useState(false);
+  const [favorites, setFavorites] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("pm_favorites") || "[]"); }
+    catch { return []; }
+  });
 
   const ITEMS_PER_LOAD = 4;
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_LOAD);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem("pm_favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  const toggleFav = (e, id) => {
+    e.stopPropagation();
+    setFavorites(f => f.includes(id) ? f.filter(x => x !== id) : [...f, id]);
+  };
 
   useEffect(() => {
     fetch("http://localhost:5055/api/recipes")
@@ -237,6 +251,7 @@ export default function RecipeBook() {
   }, []);
 
   const filteredRecipes = recipes.filter(r =>
+    (showFavs ? favorites.includes(String(r._id)) : true) &&
     r.title.toLowerCase().includes(search.toLowerCase()) &&
     (category === "All" || r.category === category) &&
     (cuisine === "All" || r.cuisine === cuisine) &&
@@ -246,13 +261,28 @@ export default function RecipeBook() {
   return (
     <div className="recipebook-page">
 
-    
+
       <div className="recipebook-header">
         <h1>My Cookbook</h1>
         <p>Your go-to recipes, all in one place.</p>
       </div>
 
-     
+      <div className="fav-tabs">
+        <button
+          className={`tab-btn ${!showFavs ? "tab-active" : ""}`}
+          onClick={() => { setShowFavs(false); setVisibleCount(ITEMS_PER_LOAD); }}
+        >
+          All Recipes
+        </button>
+        <button
+          className={`tab-btn ${showFavs ? "tab-active" : ""}`}
+          onClick={() => { setShowFavs(true); setVisibleCount(ITEMS_PER_LOAD); }}
+        >
+          ♥ Favorites {favorites.length > 0 && `(${favorites.length})`}
+        </button>
+      </div>
+
+
       <div className="filter-bar">
         <div className="search-box">
           <IoSearch className="search-icon" />
@@ -312,6 +342,14 @@ export default function RecipeBook() {
             onClick={() => navigate(`/recipe/${recipe._id}`)}
           >
             <span className="badge">{recipe.category}</span>
+
+            <button
+              className={`fav-btn ${favorites.includes(String(recipe._id)) ? "fav-active" : ""}`}
+              onClick={e => toggleFav(e, String(recipe._id))}
+              title="Favorite"
+            >
+              {favorites.includes(String(recipe._id)) ? "♥" : "♡"}
+            </button>
 
             <div className="card-title">{recipe.title}</div>
 

@@ -64,7 +64,8 @@ router.post("/match", async (req, res) => {
 
         canCook: missingIngredients.length === 0,
         missingCount: missingIngredients.length,
-        missingIngredients
+        missingIngredients,
+        totalIngredients: ingredientNames.length
       };
     });
 
