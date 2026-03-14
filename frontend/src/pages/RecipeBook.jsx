@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { CiTimer } from "react-icons/ci";
 import { IoSearch } from "react-icons/io5";
 import { GiKnifeFork } from "react-icons/gi";
-import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 import { imageMap } from "../utils/imageMap";
@@ -71,7 +70,7 @@ export default function RecipeBook() {
             setVisibleCount(ITEMS_PER_LOAD);
           }}
         >
-          {showFavourites ? <BsBookmarkFill /> : <BsBookmark />}
+          {showFavourites ? <FaHeart /> : <FaRegHeart />}
           Saved ({favourites.size})
         </button>
       </div>
