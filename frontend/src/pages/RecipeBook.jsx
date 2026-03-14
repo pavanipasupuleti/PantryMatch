@@ -59,9 +59,9 @@ export default function RecipeBook() {
     <div className="recipebook-page">
 
       <div className="recipebook-header">
-        <div>
-          <h1>My Cookbook</h1>
-          <p>Your go-to recipes, all in one place.</p>
+        <div className="recipebook-title-wrap">
+          <h1 className="recipebook-title">All Recipes</h1>
+          <p className="recipebook-subtitle">Browse, save and cook your favourites</p>
         </div>
         <button
           className={`fav-tab-btn ${showFavourites ? "fav-tab-active" : ""}`}
@@ -120,13 +120,13 @@ export default function RecipeBook() {
       )}
 
       <div className="recipe-grid">
-        {filteredRecipes.slice(0, visibleCount).map(recipe => {
+        {filteredRecipes.slice(0, visibleCount).map((recipe, idx) => {
           const isFav = favourites.has(recipe._id);
           return (
             <div
               key={recipe._id}
               className="recipe-card"
-              style={{ backgroundImage: `url(${imageMap[recipe.imageKey]})` }}
+              style={{ backgroundImage: `url(${imageMap[recipe.imageKey]})`, animationDelay: `${idx * 0.08}s` }}
               onClick={() => navigate(`/recipe/${recipe.imageKey}`)}
             >
               <span className="badge">{recipe.category}</span>

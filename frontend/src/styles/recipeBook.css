@@ -1,3 +1,24 @@
+/* ANIMATIONS */
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes filterSlideIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .recipebook-page {
   padding: 40px;
   color: white;
@@ -12,14 +33,25 @@
   flex-wrap: wrap;
 }
 
-.recipebook-header h1 {
+.recipebook-title-wrap {
+  animation: fadeSlideDown 0.5s ease both;
+}
+
+.recipebook-title {
   font-size: 36px;
   font-weight: 700;
   margin-bottom: 6px;
+  background: linear-gradient(90deg, #6effaa, #a8ffcb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.recipebook-header p {
-  opacity: 0.8;
+.recipebook-subtitle {
+  opacity: 0.75;
+  font-style: italic;
+  font-size: 15px;
+  animation: fadeSlideDown 0.5s ease 0.15s both;
 }
 
 /* SAVED TAB BUTTON */
@@ -100,6 +132,7 @@
   border-radius: 22px;
   background: rgba(110, 255, 170, 0.08);
   backdrop-filter: blur(12px);
+  animation: filterSlideIn 0.5s ease 0.25s both;
 }
 
 .search-box {
@@ -153,6 +186,7 @@
   cursor: pointer;
   outline: 1px solid rgba(255, 255, 255, 0.06);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
+  animation: fadeIn 0.5s ease both;
 }
 
 .recipe-card:hover {
