@@ -26,13 +26,13 @@
 
 ## 1. Overview
 
-**PantryMatch** is a full-stack web application that helps users discover recipes they can cook with the ingredients they already have at home. Users build a virtual pantry, and the app intelligently matches those ingredients against a recipe database — sorting results by cookability. An AI-powered feature also generates custom recipes based on available pantry items using the Anthropic Claude API.
+**PantryMatch** is a full-stack web application that helps users discover recipes they can cook with the ingredients they already have at home. Users build a virtual pantry, and the app intelligently matches those ingredients against a recipe database — sorting results by cookability. An AI-powered feature also generates custom recipes based on available pantry items.
 
 ---
 
 ## 2. Problem Statement
 
-Everyday home cooks face two recurring pain points:
+Every day home cooks face two recurring pain points:
 
 1. **"What can I cook with what I have?"** — Opening the fridge and not knowing what to make leads to decision fatigue, food waste, and unnecessary grocery trips.
 2. **Recipe discovery overload** — Most recipe apps show all recipes regardless of what ingredients a user has, making it hard to find something immediately actionable.
@@ -85,7 +85,6 @@ Everyday home cooks face two recurring pain points:
 | Backend Framework | Express.js | 5.2.1 |
 | Database | MongoDB (Mongoose ODM) | Mongoose 9.0.2 |
 | Authentication | JWT (jsonwebtoken) + bcryptjs | JWT 9.0.3 |
-| AI Integration | Anthropic Claude SDK | 0.78.0 |
 | Runtime | Node.js | — |
 | Dev Tools | nodemon, ESLint | — |
 
@@ -124,8 +123,8 @@ Everyday home cooks face two recurring pain points:
                │                  │
                ▼                  ▼
 ┌──────────────────┐   ┌──────────────────────────┐
-│  MongoDB Atlas   │   │  Anthropic Claude API     │
-│  (Recipe, User)  │   │  (AI Recipe Generation)  │
+│  MongoDB Atlas   │   │    │
+│  (Recipe, User)  │   │ (AI Recipe Generation)  │
 └──────────────────┘   └──────────────────────────┘
 ```
 
@@ -250,14 +249,14 @@ PantryMatch/
 
 #### FR-MATCH-04: Missing Ingredient Count
 - **Description:** Each card shows how many ingredients are missing.
-- **Behavior:** Clicking a card with missing ingredients shows the full detail page including a shopping list.
+- **Behavior:** Clicking a card with missing ingredients shows the full detail page, including a shopping list.
 
 ---
 
 ### 7.4 Recipe Detail Page
 
 #### FR-DETAIL-01: Full Recipe View
-- **Description:** Displays the complete recipe including all metadata and steps.
+- **Description:** Displays the complete recipe, including all metadata and steps.
 - **Fields shown:** Title, category, cuisine, cooking time, image, all ingredients with quantities, step-by-step instructions.
 
 #### FR-DETAIL-02: Ingredient Status
@@ -274,7 +273,7 @@ PantryMatch/
 - **Description:** Users can share the recipe via native share or clipboard copy.
 - **Behavior:**
   - If `navigator.share` is available (mobile/modern browsers): triggers native share sheet.
-  - Fallback: copies the page URL to clipboard.
+  - Fallback: copies the page URL to the clipboard.
 
 #### FR-DETAIL-05: Print Recipe
 - **Description:** A "Print" button triggers the browser print dialog.
@@ -331,7 +330,7 @@ PantryMatch/
   - Key ingredient match: +2 points per match
   - Optional ingredient match: +1 point per match
   - Missing key ingredient: -1 point per miss
-  - Highest-scoring template is selected and returned.
+  - The highest-scoring template is selected and returned.
 
 #### FR-AI-04: Regenerate Recipe
 - **Description:** A "Generate Another" button creates an alternative recipe suggestion without closing the modal.
@@ -660,17 +659,4 @@ The following features are explicitly excluded from the current version:
 
 ---
 
-## 14. Open Questions
 
-| # | Question | Owner | Status |
-|---|----------|-------|--------|
-| 1 | Will the Anthropic Claude API be activated for live AI generation, or stay template-based for v1.0? | Product / Engineering | Open |
-| 2 | Should pantry data be persisted server-side (MongoDB) instead of localStorage? | Engineering | Open |
-| 3 | What is the target recipe count for the initial database seed? | Content | Open |
-| 4 | Should favorites be tied to a user account (server-side) rather than localStorage? | Product | Open |
-| 5 | Are there plans to expand cuisine/category options beyond the current 4/5? | Content | Open |
-| 6 | What deployment target is planned — Vercel/Render, AWS, self-hosted? | DevOps | Open |
-
----
-
-*This document is maintained alongside the codebase. Update this PRD whenever features are added, changed, or removed.*
