@@ -78,11 +78,25 @@ function RecipeDetail() {
     const url = window.location.href;
     if (navigator.share) {
       try { await navigator.share({ title: recipe.title, url }); } catch {}
-    } else {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      return;
     }
+    // Clipboard API (requires HTTPS or localhost)
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      // execCommand fallback for non-secure contexts
+      const el = document.createElement("textarea");
+      el.value = url;
+      el.style.position = "fixed";
+      el.style.opacity = "0";
+      document.body.appendChild(el);
+      el.focus();
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const pantry = (() => {
