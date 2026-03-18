@@ -5,6 +5,7 @@ import { CiTimer } from "react-icons/ci";
 import { IoSearch } from "react-icons/io5";
 import { GiKnifeFork } from "react-icons/gi";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { MdOutlineBookmarkBorder } from "react-icons/md";
 
 import { imageMap } from "../utils/imageMap";
 import "../styles/recipeBook.css";
@@ -15,7 +16,8 @@ export default function RecipeBook() {
   const [category, setCategory] = useState("All");
   const [cuisine, setCuisine] = useState("All");
   const [time, setTime] = useState("All");
-  const [showFavourites, setShowFavourites] = useState(false);
+  const [activeTab, setActiveTab] = useState("all");
+  const [animatingId, setAnimatingId] = useState(null);
   const [favourites, setFavourites] = useState(() => {
     try {
       return new Set(JSON.parse(localStorage.getItem("pm_favourites") || "[]"));
@@ -24,7 +26,7 @@ export default function RecipeBook() {
     }
   });
 
-  const ITEMS_PER_LOAD = 4;
+  const ITEMS_PER_LOAD = 8;
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_LOAD);
 
   const navigate = useNavigate();
@@ -38,6 +40,8 @@ export default function RecipeBook() {
 
   function toggleFavourite(e, id) {
     e.stopPropagation();
+    setAnimatingId(id);
+    setTimeout(() => setAnimatingId(null), 400);
     setFavourites(prev => {
       const next = new Set(prev);
       next.has(id) ? next.delete(id) : next.add(id);
@@ -46,10 +50,20 @@ export default function RecipeBook() {
     });
   }
 
+  function switchTab(tab) {
+    setActiveTab(tab);
+    setVisibleCount(ITEMS_PER_LOAD);
+  }
+
+  const showFavourites = activeTab === "saved";
+
   const filteredRecipes = recipes
     .filter(r => (showFavourites ? favourites.has(r._id) : true))
     .filter(r =>
-      r.title.toLowerCase().includes(search.toLowerCase()) &&
+      (r.title.toLowerCase().includes(search.toLowerCase()) ||
+        (r.ingredients || []).some(i =>
+          i.toLowerCase().includes(search.toLowerCase())
+        )) &&
       (category === "All" || r.category === category) &&
       (cuisine === "All" || r.cuisine === cuisine) &&
       (time === "All" || r.time <= Number(time))
@@ -58,28 +72,41 @@ export default function RecipeBook() {
   return (
     <div className="recipebook-page">
 
+      {/* HEADER */}
       <div className="recipebook-header">
         <div className="recipebook-title-wrap">
-          <h1 className="recipebook-title">All Recipes</h1>
+          <h1 className="recipebook-title">Recipe Book</h1>
           <p className="recipebook-subtitle">Browse, save and cook your favourites</p>
         </div>
-        <button
-          className={`fav-tab-btn ${showFavourites ? "fav-tab-active" : ""}`}
-          onClick={() => {
-            setShowFavourites(v => !v);
-            setVisibleCount(ITEMS_PER_LOAD);
-          }}
-        >
-          {showFavourites ? <FaHeart /> : <FaRegHeart />}
-          Saved ({favourites.size})
-        </button>
+
+        {/* TAB TOGGLE */}
+        <div className="tab-toggle">
+          <button
+            className={`tab-btn ${activeTab === "all" ? "tab-active" : ""}`}
+            onClick={() => switchTab("all")}
+          >
+            <GiKnifeFork className="tab-icon" />
+            All Recipes
+          </button>
+          <button
+            className={`tab-btn ${activeTab === "saved" ? "tab-active" : ""}`}
+            onClick={() => switchTab("saved")}
+          >
+            <FaHeart className="tab-icon" />
+            Saved Recipes
+            {favourites.size > 0 && (
+              <span className="tab-badge">{favourites.size}</span>
+            )}
+          </button>
+        </div>
       </div>
 
+      {/* FILTER BAR */}
       <div className="filter-bar">
         <div className="search-box">
           <IoSearch className="search-icon" />
           <input
-            placeholder="What are we craving today?"
+            placeholder="Search recipes or ingredients…"
             value={search}
             onChange={e => {
               setSearch(e.target.value);
@@ -88,45 +115,93 @@ export default function RecipeBook() {
           />
         </div>
 
-        <select onChange={e => { setCategory(e.target.value); setVisibleCount(ITEMS_PER_LOAD); }}>
-          <option>All</option>
-          <option>Breakfast</option>
-          <option>Lunch</option>
-          <option>Dinner</option>
-          <option>Snacks</option>
-          <option>Drinks</option>
-        </select>
+        <div className="filter-group">
+          <label className="filter-label">Meal Type</label>
+          <select
+            value={category}
+            onChange={e => { setCategory(e.target.value); setVisibleCount(ITEMS_PER_LOAD); }}
+          >
+            <option value="All">All</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Snacks">Snacks</option>
+            <option value="Drinks">Drinks</option>
+          </select>
+        </div>
 
-        <select onChange={e => { setCuisine(e.target.value); setVisibleCount(ITEMS_PER_LOAD); }}>
-          <option>All</option>
-          <option>Indian</option>
-          <option>Italian</option>
-          <option>Chinese</option>
-          <option>American</option>
-        </select>
+        <div className="filter-group">
+          <label className="filter-label">Cuisine</label>
+          <select
+            value={cuisine}
+            onChange={e => { setCuisine(e.target.value); setVisibleCount(ITEMS_PER_LOAD); }}
+          >
+            <option value="All">All</option>
+            <option value="Indian">Indian</option>
+            <option value="Italian">Italian</option>
+            <option value="Chinese">Chinese</option>
+            <option value="American">American</option>
+          </select>
+        </div>
 
-        <select onChange={e => { setTime(e.target.value); setVisibleCount(ITEMS_PER_LOAD); }}>
-          <option value="All">All</option>
-          <option value="10">Under 10 mins</option>
-          <option value="20">Under 20 mins</option>
-          <option value="30">Under 30 mins</option>
-          <option value="40">Under 40 mins</option>
-          <option value="50">Under 50 mins</option>
-        </select>
+        <div className="filter-group">
+          <label className="filter-label">Cooking Time</label>
+          <select
+            value={time}
+            onChange={e => { setTime(e.target.value); setVisibleCount(ITEMS_PER_LOAD); }}
+          >
+            <option value="All">Any Time</option>
+            <option value="10">Under 10 mins</option>
+            <option value="20">Under 20 mins</option>
+            <option value="30">Under 30 mins</option>
+            <option value="40">Under 40 mins</option>
+            <option value="50">Under 50 mins</option>
+          </select>
+        </div>
       </div>
 
-      {showFavourites && filteredRecipes.length === 0 && (
-        <p className="no-favs-msg">No saved recipes yet. Bookmark recipes to see them here.</p>
+      {/* RESULTS COUNT */}
+      {filteredRecipes.length > 0 && (
+        <p className="results-count">
+          {filteredRecipes.length} recipe{filteredRecipes.length !== 1 ? "s" : ""} found
+        </p>
       )}
 
+      {/* EMPTY STATE */}
+      {filteredRecipes.length === 0 && (
+        <div className="empty-state">
+          <div className="empty-icon">
+            {showFavourites ? <FaHeart /> : <MdOutlineBookmarkBorder />}
+          </div>
+          <h3 className="empty-title">
+            {showFavourites ? "No saved recipes yet" : "No recipes found"}
+          </h3>
+          <p className="empty-msg">
+            {showFavourites
+              ? "Tap the heart on any recipe to save it here for quick access."
+              : "Try adjusting your search or filters to find something delicious."}
+          </p>
+          {showFavourites && (
+            <button className="empty-cta" onClick={() => switchTab("all")}>
+              Browse All Recipes
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* GRID */}
       <div className="recipe-grid">
         {filteredRecipes.slice(0, visibleCount).map((recipe, idx) => {
           const isFav = favourites.has(recipe._id);
+          const isAnimating = animatingId === recipe._id;
           return (
             <div
               key={recipe._id}
               className="recipe-card"
-              style={{ backgroundImage: `url(${imageMap[recipe.imageKey]})`, animationDelay: `${idx * 0.08}s` }}
+              style={{
+                backgroundImage: `url(${imageMap[recipe.imageKey]})`,
+                animationDelay: `${idx * 0.06}s`,
+              }}
               onClick={() => navigate(`/recipe/${recipe.imageKey}`)}
             >
               <span className="badge">{recipe.category}</span>
@@ -134,9 +209,11 @@ export default function RecipeBook() {
               <button
                 className={`bookmark-btn ${isFav ? "bookmarked" : ""}`}
                 onClick={e => toggleFavourite(e, recipe._id)}
-                title={isFav ? "Remove from favourites" : "Add to favourites"}
+                title={isFav ? "Remove from favourites" : "Save to favourites"}
               >
-                {isFav ? <FaHeart /> : <FaRegHeart />}
+                <span className={`heart-icon ${isAnimating ? "heart-pop" : ""}`}>
+                  {isFav ? <FaHeart /> : <FaRegHeart />}
+                </span>
               </button>
 
               <div className="card-title">{recipe.title}</div>
@@ -153,6 +230,7 @@ export default function RecipeBook() {
         })}
       </div>
 
+      {/* SHOW MORE */}
       {visibleCount < filteredRecipes.length && (
         <div className="show-more-wrapper">
           <button
