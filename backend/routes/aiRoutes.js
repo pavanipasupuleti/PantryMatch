@@ -320,38 +320,39 @@ const TEMPLATES = [
 ];
 
 /* ─────────────────────────────────────────────
-   Scoring — pick the best-matching template
+   Scoring — rank all templates by pantry match
 ───────────────────────────────────────────── */
-function pickBest(pantry) {
-  const scored = TEMPLATES.map(t => {
+function rankTemplates(pantry) {
+  return TEMPLATES.map((t, idx) => {
     const keyHits      = t.key.filter(i => pantry.includes(i)).length;
     const optionalHits = t.optional.filter(i => pantry.includes(i)).length;
     const keyMisses    = t.key.length - keyHits;
     const score        = keyHits * 2 + optionalHits - keyMisses;
-    return { t, score };
-  });
-
-  scored.sort((a, b) => b.score - a.score);
-  return scored[0].t;
+    return { t, score, idx };
+  }).sort((a, b) => b.score - a.score);
 }
 
 /* ─────────────────────────────────────────────
    POST /api/ai/generate
-   Body: { pantry: string[] }
+   Body: { pantry: string[], exclude?: number[] }
+   exclude: array of template indexes already shown
 ───────────────────────────────────────────── */
 router.post("/generate", (req, res) => {
-  const { pantry = [] } = req.body;
+  const { pantry = [], exclude = [] } = req.body;
 
   if (pantry.length < 2) {
     return res.status(400).json({ message: "Add at least 2 ingredients to generate a recipe." });
   }
 
   const normalized = pantry.map(i => i.toLowerCase().trim());
-  const template   = pickBest(normalized);
-  const recipe     = template.build(normalized);
+  const ranked     = rankTemplates(normalized);
 
-  // Derive missingKey for frontend compatibility
-  recipe.missingKey = recipe.ingredients.filter(i => !i.have).map(i => i.name);
+  // Pick the best template not in the exclude list; fall back to top if all excluded
+  const pick = ranked.find(r => !exclude.includes(r.idx)) || ranked[0];
+  const recipe = pick.t.build(normalized);
+
+  recipe.missingKey   = recipe.ingredients.filter(i => !i.have).map(i => i.name);
+  recipe.templateIdx  = pick.idx; // send back so frontend can exclude it next time
 
   res.json(recipe);
 });
