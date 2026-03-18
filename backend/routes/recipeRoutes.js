@@ -4,12 +4,24 @@ import Recipe from "../models/Recipe.js";
 
 const router = express.Router();
 
+// Simple in-memory cache — survives across warm serverless invocations
+const cache = { recipes: null, expiresAt: 0 };
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+async function getAllRecipes() {
+  if (cache.recipes && Date.now() < cache.expiresAt) return cache.recipes;
+  const recipes = await Recipe.find();
+  cache.recipes = recipes;
+  cache.expiresAt = Date.now() + CACHE_TTL_MS;
+  return recipes;
+}
+
 /* =============================
    GET ALL RECIPES
    ============================= */
 router.get("/", async (req, res) => {
   try {
-    const recipes = await Recipe.find();
+    const recipes = await getAllRecipes();
     res.json(recipes);
   } catch {
     res.status(500).json({ message: "Failed to fetch recipes" });
@@ -21,7 +33,7 @@ router.get("/", async (req, res) => {
    ============================= */
 router.get("/ingredients/all", async (req, res) => {
   try {
-    const recipes = await Recipe.find();
+    const recipes = await getAllRecipes();
     const ingredientSet = new Set();
 
     recipes.forEach(recipe => {
@@ -40,7 +52,7 @@ router.get("/ingredients/all", async (req, res) => {
 router.post("/match", async (req, res) => {
   try {
     const { pantry } = req.body;
-    const recipes = await Recipe.find();
+    const recipes = await getAllRecipes();
 
     const normalizedPantry = pantry.map(i => i.toLowerCase().trim());
 
@@ -83,7 +95,8 @@ router.post("/match", async (req, res) => {
    ============================= */
 router.get("/:slug", async (req, res) => {
   try {
-    const recipe = await Recipe.findOne({ imageKey: req.params.slug });
+    const recipes = await getAllRecipes();
+    const recipe = recipes.find(r => r.imageKey === req.params.slug);
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
