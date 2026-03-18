@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { FiX, FiCheck, FiAlertCircle, FiClock, FiRefreshCw } from "react-icons/fi";
 import "../styles/aiModal.css";
 
@@ -6,18 +6,18 @@ export default function AiRecipeModal({ pantry, onClose }) {
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [shownIndexes, setShownIndexes] = useState([]);
+  const shownIndexesRef = useRef([]);
 
   const generate = useCallback(async () => {
     setLoading(true);
     setError("");
-    setRecipe(null); // always clear previous recipe before fetching
+    setRecipe(null);
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/ai/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pantry, exclude: shownIndexes }),
+        body: JSON.stringify({ pantry, exclude: shownIndexesRef.current }),
       });
 
       const data = await res.json();
@@ -27,16 +27,15 @@ export default function AiRecipeModal({ pantry, onClose }) {
         return;
       }
 
-      // Validate the response has required fields
       if (!data.title || !data.ingredients || !data.steps) {
         setError("AI returned an incomplete recipe. Please try again.");
         return;
       }
 
-      setRecipe(data);
       if (data.templateIdx !== undefined) {
-        setShownIndexes(prev => [...prev, data.templateIdx]);
+        shownIndexesRef.current = [...shownIndexesRef.current, data.templateIdx];
       }
+      setRecipe(data);
     } catch (err) {
       if (err.name === "TypeError") {
         setError("Cannot connect to the server. Make sure the backend is running.");
@@ -46,12 +45,12 @@ export default function AiRecipeModal({ pantry, onClose }) {
     } finally {
       setLoading(false);
     }
-  }, [pantry, shownIndexes]);
+  }, [pantry]);
 
   // Auto-generate on open
   useEffect(() => {
     generate();
-  }, [generate]);
+  }, []);
 
   // Close on Escape key
   useEffect(() => {
